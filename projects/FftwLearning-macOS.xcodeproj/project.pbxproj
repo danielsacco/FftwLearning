@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -2826,7 +2826,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-AUv3-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2863,7 +2867,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-AUv3-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2900,7 +2908,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-AUv3-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3010,7 +3022,10 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
@@ -3036,7 +3051,10 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
@@ -3062,7 +3080,10 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
@@ -3110,7 +3131,10 @@
 				GENERATE_PKGINFO_FILE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -3168,7 +3192,10 @@
 				GENERATE_PKGINFO_FILE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -3226,7 +3253,10 @@
 				GENERATE_PKGINFO_FILE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/../resources/FftwLearning-macOS-AUv3Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -3287,8 +3317,18 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(VST3_SDK)",
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = "../resources/FftwLearning-VST3-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(EXTRA_LIB_PATHS)",
+					/opt/homebrew/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(EXTRA_LNK_FLAGS)",
+					"$(ALL_FRAMEWORKS)",
+					"-lfftw3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DES.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3309,8 +3349,18 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(VST3_SDK)",
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = "../resources/FftwLearning-VST3-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(EXTRA_LIB_PATHS)",
+					/opt/homebrew/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(EXTRA_LNK_FLAGS)",
+					"$(ALL_FRAMEWORKS)",
+					"-lfftw3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DES.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3331,8 +3381,18 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(VST3_SDK)",
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = "../resources/FftwLearning-VST3-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(EXTRA_LIB_PATHS)",
+					/opt/homebrew/lib,
+				);
+				OTHER_LDFLAGS = (
+					"$(EXTRA_LNK_FLAGS)",
+					"$(ALL_FRAMEWORKS)",
+					"-lfftw3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DES.vst3.${BINARY_NAME}";
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -3655,7 +3715,11 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
@@ -3680,7 +3744,11 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
@@ -3705,7 +3773,11 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "../resources/FftwLearning-macOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"$(APP_FRAMEWORKS)",
 					"$(inherited)",
