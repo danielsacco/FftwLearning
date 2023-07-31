@@ -29,9 +29,11 @@ public:
 private:
   
   // TODO Horrible: Assuming stereo
+  const int fftSize = 256;
+  const int hopSize = fftSize / 4;
   std::array<SpectrumAnalyzer, 2> spectrumAnalyzers {
-    SpectrumAnalyzer{1024},
-    SpectrumAnalyzer{1024}
+    SpectrumAnalyzer{fftSize, hopSize},
+    SpectrumAnalyzer{fftSize, hopSize}
   };
 
 #endif

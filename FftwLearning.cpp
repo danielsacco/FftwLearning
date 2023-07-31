@@ -38,11 +38,13 @@ void FftwLearning::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
   std::vector<std::vector<std::complex<double>>> spectrum;
   
   for (int channel = 0; channel < nChans; channel++) {
+    auto& analyzer = spectrumAnalyzers[channel];
+    
     for (int sample = 0; sample < nFrames; sample++) {
       outputs[channel][sample] = inputs[channel][sample] * gain;
       
       // Fill fft input
-      spectrumAnalyzers[channel].push_sample(inputs[channel][sample]);
+      analyzer.push_sample(inputs[channel][sample]);
     }
   }
 }
@@ -54,17 +56,19 @@ void FftwLearning::OnIdle() {
     // Process data from spectrum analyzer
     spectrumAnalyzers[i].processPendingData([](SpectrumData spectrumData) {
       // Do something with the result
-      //for(int i = 0; i < spectrumData.size(); i++) {
-      //  auto bin = spectrumData[i];
-      //}
-      
+      vector<double> spectrumMagnitudes;
+      for(int i = 0; i < spectrumData.size(); i++) {
+        auto bin = spectrumData[i];
+        
+        spectrumMagnitudes.push_back(std::abs(bin));
+      }
       // Print a bin to output just for debugging purposes
-      std::cout << spectrumData[201] << std::endl;
+      //std::cout << spectrumMagnitudes[0] << "\t";
+      //std::cout << spectrumMagnitudes[spectrumMagnitudes.size()-1] << std::endl;
       }
     );
     
   }
-  
   
 }
 

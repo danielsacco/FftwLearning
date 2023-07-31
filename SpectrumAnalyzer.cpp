@@ -2,7 +2,13 @@
 
 namespace des {
 
-SpectrumAnalyzer::SpectrumAnalyzer(int fftSize) : fftInputSize(fftSize) {
+SpectrumAnalyzer::SpectrumAnalyzer(int fftSize, int hopSize) :
+fftInputSize(fftSize),
+hopSize(hopSize),
+hopCounter(hopSize),
+window(WindowFunction(fftSize)),
+inputBuffer(fftSize) {
+  
   fftInput = (double*) fftw_malloc(sizeof(double) * fftInputSize);
   fftResult = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * fftOutputSize);
   fftPlan = fftw_plan_dft_r2c_1d(fftInputSize, fftInput, fftResult, FFTW_ESTIMATE);
@@ -18,38 +24,34 @@ void SpectrumAnalyzer::push_sample(double sample) {
   
   inputBuffer.push_back(sample);
   
-  if(inputBuffer.size() < fftInputSize) {
-    // keep accumulating samples until we fill a whole block
-    return;
+  hopCounter--;
+  if (hopCounter == 0) {
+    // We reached the hop size. Enqueue the data snapshot for spectrum calculation
+    vector<double> dataBlock(inputBuffer.begin(), inputBuffer.end());
+    safelyPushBlock(dataBlock);
+    hopCounter = hopSize;
+
+    // Discard eldest elements from queue if they where not consumed
+    // TODO Make pending queue limit configurable
+    while (pendingBlocks.size() > 50) {
+      safelyPopBlock();
+    }
+    
   }
-  
-  // We reached the fft size. Enqueue the data for spectrum calculation
-  pendingBlocks.push(vector<double>(inputBuffer));
-  
-  // Discard eldest elements from queue if they where not consumed
-  // TODO Make pending queue limit configurable
-  while (pendingBlocks.size() > 100) {
-    pendingBlocks.pop();
-  }
-  
-  inputBuffer.clear();
 }
 
 void SpectrumAnalyzer::processPendingData(std::function<void(SpectrumData)> spectrumDataReceiver) {
 
   while (! pendingBlocks.empty()) {
     
-    auto block = pendingBlocks.front();
-    pendingBlocks.pop();
+    auto& block = pendingBlocks.front();
     
     // TODO Any elegant way of doing this ?
     for(int i = 0; i < fftInputSize; i++) {
-      fftInput[i] = block[i];
+      fftInput[i] = block[i] * window[i];
     }
-    
-    // TODO Windowing !!!
-    
-    
+
+    safelyPopBlock();
     
     fftw_execute(fftPlan);
     
@@ -57,10 +59,8 @@ void SpectrumAnalyzer::processPendingData(std::function<void(SpectrumData)> spec
     
     // Apply the result to a function received by parameter
     spectrumDataReceiver(result);
+
   }
-  
-  
-  
 }
 
 SpectrumData SpectrumAnalyzer::resultAsSpectrumData() {
