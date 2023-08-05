@@ -1,2 +1,2 @@
 # FftwLearning
-A basic volume control effect plug-in with IGraphics GUI
+Learning how to implement a Spectrum meter with iPlug2
