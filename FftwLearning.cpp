@@ -20,9 +20,15 @@ FftwLearning::FftwLearning(const InstanceInfo& info)
     pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
     pGraphics->AttachPanelBackground(COLOR_GRAY);
     pGraphics->LoadFont("Roboto-Regular", ROBOTO_FN);
-    const IRECT b = pGraphics->GetBounds();
-    pGraphics->AttachControl(new ITextControl(b.GetMidVPadded(50), "Hello iPlug 2!", IText(50)));
-    pGraphics->AttachControl(new IVKnobControl(b.GetCentredInside(100).GetVShifted(-100), kGain));
+//    const IRECT b = pGraphics->GetBounds();
+//    pGraphics->AttachControl(new ITextControl(b.GetMidVPadded(50), "Hello iPlug 2!", IText(50)));
+//    pGraphics->AttachControl(new IVKnobControl(b.GetCentredInside(100).GetVShifted(-100), kGain));
+    
+    const IRECT wholeCanvas = pGraphics->GetBounds();
+    pGraphics->AttachControl(
+      new IVSpectrumControl(wholeCanvas, "montoto", DEFAULT_STYLE),
+      kCtrlTagSpectrum
+    );
   };
 #endif
 
@@ -51,24 +57,31 @@ void FftwLearning::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
 void FftwLearning::OnIdle() {
  
-  for(int i = 0; i < 2; i++) {
-
-    // Process data from spectrum analyzer
-    spectrumAnalyzers[i].processPendingData([](SpectrumData spectrumData) {
-      // Do something with the result
-      vector<double> spectrumMagnitudes;
-      for(int i = 0; i < spectrumData.size(); i++) {
-        auto bin = spectrumData[i];
-        
-        spectrumMagnitudes.push_back(std::abs(bin));
-      }
-      // Print a bin to output just for debugging purposes
-      //std::cout << spectrumMagnitudes[0] << "\t";
-      //std::cout << spectrumMagnitudes[spectrumMagnitudes.size()-1] << std::endl;
-      }
-    );
+//  for(int i = 0; i < 2; i++) {
+//
+//    // Process data from spectrum analyzer
+//    spectrumAnalyzers[i].processPendingData([](SpectrumData spectrumData) {
+//      // Do something with the result
+//      vector<double> spectrumMagnitudes;
+//      for(int i = 0; i < spectrumData.size(); i++) {
+//        auto bin = spectrumData[i];
+//
+//        spectrumMagnitudes.push_back(AmpToDB(std::abs(bin)));
+//      }
+//      // Print a bin to output just for debugging purposes
+//      std::cout << spectrumMagnitudes[0] << "\t";
+//      std::cout << spectrumMagnitudes[spectrumMagnitudes.size()-1] << std::endl;
+//      }
+//    );
     
-  }
+  // For debugging purposes use only left channel
+  spectrumAnalyzers[0].processPendingData([&](SpectrumData spectrumData) {
+
+    ISenderData<1, SpectrumData> data;
+    data.ctrlTag = kCtrlTagSpectrum;
+    data.vals[0] = spectrumData;
+    spectrumDataSender.PushData(data);  // TODO Ver porque falla la copia acá !!!
+  });
   
 }
 

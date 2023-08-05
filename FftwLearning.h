@@ -3,6 +3,8 @@
 #include "IPlug_include_in_plug_hdr.h"
 #include <array>
 #include "SpectrumAnalyzer.h"
+#include "ISender.h"
+#include "IVSpectrumControl.h"
 
 using namespace des;
 
@@ -12,6 +14,11 @@ enum EParams
 {
   kGain = 0,
   kNumParams
+};
+
+enum EControlTags
+{
+  kCtrlTagSpectrum = 0
 };
 
 using namespace iplug;
@@ -36,5 +43,8 @@ private:
     SpectrumAnalyzer{fftSize, hopSize}
   };
 
+  iplug::ISender<1, 64, SpectrumData> spectrumDataSender;
+  
 #endif
+  
 };
